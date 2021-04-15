@@ -1,3 +1,6 @@
+PACKAGE_NAME := envsubst
+PACKAGE_VERSION := 0.1
+
 prefix       ?= /usr/local
 bindir	     ?= /bin
 
@@ -7,9 +10,8 @@ INSTALL      ?= install
 
 ENVSUBST_SRC = envsubst.c
 ENVSUBST_OBJ = ${ENVSUBST_SRC:.c=.o}
-ENVSUBST_VER = 0.1
 
-CFLAGS       += -DENVSUBST_VERSION='"${ENVSUBST_VER}"'
+CFLAGS       += -DENVSUBST_VERSION='"${PACKAGE_VERSION}"'
 
 envsubst: ${ENVSUBST_OBJ}
 	${CC} -o $@ ${ENVSUBST_OBJ}
@@ -19,3 +21,13 @@ clean:
 
 install:
 	${INSTALL} -D -m755 envsubst ${DESTDIR}${prefix}${bindir}/envsubst
+
+DIST_NAME = ${PACKAGE_NAME}-${PACKAGE_VERSION}
+DIST_TARBALL = ${DIST_NAME}.tar.xz
+
+check:
+distcheck: check dist
+dist: ${DIST_TARBALL}
+${DIST_TARBALL}:
+	git archive --format=tar --prefix=${DIST_NAME}/ -o ${DIST_NAME}.tar ${DIST_NAME}
+	xz ${DIST_NAME}.tar
