@@ -7,6 +7,9 @@ INSTALL      ?= install
 
 ENVSUBST_SRC = envsubst.c
 ENVSUBST_OBJ = ${ENVSUBST_SRC:.c=.o}
+ENVSUBST_VER = 0.1
+
+CFLAGS       += -DENVSUBST_VERSION='"${ENVSUBST_VER}"'
 
 envsubst: ${ENVSUBST_OBJ}
 	${CC} -o $@ ${ENVSUBST_OBJ}
