@@ -140,6 +140,17 @@ allow_variable(const char *token)
 }
 
 void
+free_variables(void)
+{
+	for (size_t i = 0; i < variable_count; i++)
+	{
+		free(variables[i]);
+	}
+
+	free(variables);
+}
+
+void
 print_variable(FILE *stream, const char *token, const char *orig_token)
 {
 	if (allow_variable(token))
@@ -192,6 +203,8 @@ process_input(FILE *stream)
 			}
 		}
 	}
+
+	free(line);
 }
 
 int
@@ -239,6 +252,7 @@ main(int argc, char *argv[])
 	}
 
 	process_input(stdin);
+	free_variables();
 
 	return EXIT_SUCCESS;
 }
