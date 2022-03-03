@@ -184,7 +184,7 @@ process_input(FILE *stream)
 			switch (*p)
 			{
 			case '$': {
-				char *end_p = strpbrk(p, " \t\r\n");
+				char *end_p = strpbrk(p, " /\t\r\n");
 				char ospace = *end_p;
 				*end_p = '\0';
 
