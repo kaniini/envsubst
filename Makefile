@@ -14,7 +14,7 @@ ENVSUBST_OBJ = ${ENVSUBST_SRC:.c=.o}
 CFLAGS       += -DENVSUBST_VERSION='"${PACKAGE_VERSION}"'
 
 envsubst: ${ENVSUBST_OBJ}
-	${CC} -o $@ ${ENVSUBST_OBJ}
+	${CC} ${LDFLAGS} -o $@ ${ENVSUBST_OBJ}
 
 clean:
 	${RM} ${ENVSUBST_OBJ} envsubst
